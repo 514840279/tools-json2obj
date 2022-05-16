@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    open-in-view: true
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect

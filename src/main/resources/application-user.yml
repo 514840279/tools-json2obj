@@ -1,0 +1,10 @@
+user:
+  # 开关
+  start: true
+  type: "dir"  # dir or file
+  json-dir: "jsonfile/"
+  sql-dir: "sqlfile/"
+  json-file: "jsonfile/ssss.json"
+  sql-file: "sqlfile/ssss.json"
+  ignore-type: # 
+    - "基本信息"

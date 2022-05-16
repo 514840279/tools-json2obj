@@ -1,0 +1,17 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /proxy
+  
+
+spring:
+  application:
+    name: ip-proxy
+  banner:
+    charset: utf-8
+  profiles:
+    active:
+    - h2
+    - jpa
+    - hikari
+    - user
