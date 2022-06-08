@@ -137,6 +137,16 @@ public class SpellSql {
 				v = "执行董事";
 			} else if (v.equals(JsonImgData.dsz)) {
 				v = "董事长";
+			} else if (v.equals(JsonImgData.cwfzr)) {
+				v = "财务负责人";
+			} else if (v.equals(JsonImgData.jsz)) {
+				v = "监事长";
+			} else if (v.equals(JsonImgData.dsjzjl)) {
+				v = "董事兼总经理";
+			} else if (v.equals(JsonImgData.zgjs)) {
+				v = "职工监事";
+			} else if (v.equals(JsonImgData.jl)) {
+				v = "经理";
 			}
 			
 		}
