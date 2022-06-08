@@ -13,10 +13,10 @@ import com.tools.json2obj.po.JsonTableCofig;
 import com.tools.json2obj.po.JsonTableColumn;
 
 public class SpellSql {
-
+	
 	// 基本信息
 	public static String map2sql(Map<String, String> map, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
 		sb.append(conf.getTableName());
@@ -39,20 +39,20 @@ public class SpellSql {
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系", conf.getType(), key));
 			}
 		}
-
+		
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-
+		
 		return sb.toString();
 	}
-
+	
 	// 股东
 	public static String json2sql(JSONObject jsondata, Map<String, Object> delmap, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
 		sb.append(conf.getTableName());
@@ -81,18 +81,18 @@ public class SpellSql {
 				}
 			}
 		}
-		
+
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-		
-		return sb.toString();
-		
-	}
 
+		return sb.toString();
+
+	}
+	
 	// 对数据简单的清理
 	private static String valueclean(String v) {
 		if (StringUtils.isBlank(v)) {
@@ -104,10 +104,10 @@ public class SpellSql {
 		}
 		// TODO 处理 html
 		v = v.replaceAll("<.*?>.*?</.*?>", "");
-		
+
 		return ",'" + v.replace("'", "‘") + "'";
 	}
-
+	
 	// 对日期简单的清理
 	private static String dateclean(Long v) {
 		if (v == null) {
@@ -118,7 +118,7 @@ public class SpellSql {
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		return ",'" + sd.format(d).toString() + "'";
 	}
-
+	
 	// 对图片简单处理
 	private static String imageclean(String v) {
 		if (StringUtils.isBlank(v)) {
@@ -147,13 +147,15 @@ public class SpellSql {
 				v = "职工监事";
 			} else if (v.equals(JsonImgData.jl)) {
 				v = "经理";
+			} else if (v.equals(JsonImgData.fdsz)) {
+				v = "副董事长";
 			}
-			
-		}
 
+		}
+		
 		return ",'" + v + "'";
 	}
-	
+
 	// 一般处理
 	public static String json2sql(JSONObject jsond, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
 		StringBuffer sb = new StringBuffer();
@@ -188,17 +190,17 @@ public class SpellSql {
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系,json值{%s}", conf.getType(), key, jsond.get(key)));
 			}
 		}
-		
+
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-		
+
 		return sb.toString();
 	}
-	
+
 	public static String json2sql(JSONObject jsond, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId, String year) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
@@ -233,15 +235,15 @@ public class SpellSql {
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系,json值{%s}", conf.getType(), key, jsond.get(key)));
 			}
 		}
-		
+
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-		
+
 		return sb.toString();
 	}
-	
+
 }
