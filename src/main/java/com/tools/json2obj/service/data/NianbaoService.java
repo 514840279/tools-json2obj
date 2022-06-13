@@ -40,6 +40,12 @@ public class NianbaoService {
 			JsonTableColumn column = new JsonTableColumn(conf.getId());
 			List<JsonTableColumn> columns = jsonTableColumnDao.findAll(Example.of(column));
 			
+			if (!conf.getType().equals(JsonTableType.TYPE_1)) {
+				String sql = " delete from " + conf.getTableName() + " where company_id ='" + companyId + "';";
+				// 写进sql文件
+				TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+			}
+			
 			for (String str : list) {
 				JSONArray arr = JSON.parseArray(str);
 				for (int i = 0; i < arr.size(); i++) {
@@ -136,17 +142,29 @@ public class NianbaoService {
 						JSONObject jsond = (JSONObject) arr.get(i);
 						String anCheId = jsond.getString("anCheId");
 						String year = jsond.getString("anCheYear");
+						if (!conf.getType().equals(JsonTableType.TYPE_1)) {
+							String sql = " delete from " + confbase.getTableName() + year + " where company_id ='" + companyId + "';";
+							// 写进sql文件
+							TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+						}
 
-						String sql = SpellSql.json2sql(jsond, confbase, columns, companyId, year);
+						String basesql = SpellSql.json2sql(jsond, confbase, columns, companyId, year);
 
 						// 写进sql文件
-						TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+						TxtFilesWriter.appendWriteToFile(basesql, sqlfilepath);
 
 						// TODO 对外担保 base_guarantee_2017
 						if (dabaoList != null && confdanbao != null) {
+							Boolean flag = true;
 							for (JSONObject danbao : dabaoList) {
 								String aid = danbao.getString("anCheId");
 								if (anCheId.equals(aid)) {
+									if (flag) {
+										String sql = " delete from " + confdanbao.getTableName() + year + " where company_id ='" + companyId + "';";
+										// 写进sql文件
+										TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+										flag = false;
+									}
 									String sqldabao = SpellSql.json2sql(danbao, confdanbao, columndanbaos, companyId, year);
 									// 写进sql文件
 									TxtFilesWriter.appendWriteToFile(sqldabao, sqlfilepath);
@@ -157,9 +175,16 @@ public class NianbaoService {
 
 						// TODO 对外投资 base_investment_2019
 						if (touziList != null && conftouzi != null) {
+							Boolean flag = true;
 							for (JSONObject touzi : touziList) {
 								String aid = touzi.getString("anCheId");
 								if (anCheId.equals(aid)) {
+									if (flag) {
+										String sql = " delete from " + conftouzi.getTableName() + year + " where company_id ='" + companyId + "';";
+										// 写进sql文件
+										TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+										flag = false;
+									}
 									String sqldabao = SpellSql.json2sql(touzi, conftouzi, columntouzis, companyId, year);
 									// 写进sql文件
 									TxtFilesWriter.appendWriteToFile(sqldabao, sqlfilepath);
@@ -169,9 +194,16 @@ public class NianbaoService {
 
 						// 社保 base_insurance_2015
 						if (shebaoList != null && confshebao != null) {
+							Boolean flag = true;
 							for (JSONObject shebao : shebaoList) {
 								String aid = shebao.getString("anCheId");
 								if (anCheId.equals(aid)) {
+									if (flag) {
+										String sql = " delete from " + confshebao.getTableName() + year + " where company_id ='" + companyId + "';";
+										// 写进sql文件
+										TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+										flag = false;
+									}
 									String sqldabao = SpellSql.json2sql(shebao, confshebao, columnshebaos, companyId, year);
 									// 写进sql文件
 									TxtFilesWriter.appendWriteToFile(sqldabao, sqlfilepath);
@@ -181,9 +213,16 @@ public class NianbaoService {
 
 						// 网站 base_website_2018
 						if (wangzhanList != null && confwangzhan != null) {
+							Boolean flag = true;
 							for (JSONObject wangzhan : wangzhanList) {
 								String aid = wangzhan.getString("anCheId");
 								if (anCheId.equals(aid)) {
+									if (flag) {
+										String sql = " delete from " + confwangzhan.getTableName() + year + " where company_id ='" + companyId + "';";
+										// 写进sql文件
+										TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+										flag = false;
+									}
 									String sqldabao = SpellSql.json2sql(wangzhan, confwangzhan, columnwangzhans, companyId, year);
 									// 写进sql文件
 									TxtFilesWriter.appendWriteToFile(sqldabao, sqlfilepath);
@@ -191,6 +230,11 @@ public class NianbaoService {
 							}
 						}
 
+						if (!conf.getType().equals(JsonTableType.TYPE_1)) {
+							String sql = " delete from " + confzichan.getTableName() + year + " where company_id ='" + companyId + "';";
+							// 写进sql文件
+							TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+						}
 						// 企业资产 base_assetsInfo_2013
 						String sqldabao = SpellSql.json2sql(jsond, confzichan, columnzichans, companyId, year);
 						// 写进sql文件

@@ -22,13 +22,13 @@ import com.tools.json2obj.service.SpellSql;
 
 @Component
 public class GudongService {
-
-	@Autowired
-	JsonTableCofigDao	jsonTableCofigDao;
 	
 	@Autowired
-	JsonTableColumnDao	jsonTableColumnDao;
+	JsonTableCofigDao	jsonTableCofigDao;
 
+	@Autowired
+	JsonTableColumnDao	jsonTableColumnDao;
+	
 	// 股东及出资信息上
 	public void spellSql1(Map<String, List<String>> map, String companyId, List<String> list, String sqlfilepath) {
 		JsonTableCofig conf = new JsonTableCofig(JsonTableType.TYPE_2);
@@ -37,7 +37,13 @@ public class GudongService {
 			conf = optional.get();
 			JsonTableColumn column = new JsonTableColumn(conf.getId());
 			List<JsonTableColumn> columns = jsonTableColumnDao.findAll(Example.of(column));
-			
+
+			if (!conf.getType().equals(JsonTableType.TYPE_1)) {
+				String sql = " delete from " + conf.getTableName() + " where company_id ='" + companyId + "';";
+				// 写进sql文件
+				TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
+			}
+
 			// TODO 股东及出资信息上详细信息
 			List<String> detl = map.get(JsonTableType.TYPE_2_1);
 			Map<String, Map<String, Object>> lima = null;
@@ -45,12 +51,12 @@ public class GudongService {
 				// 处理详细信息为一个map方便取
 				lima = json2Map(detl);
 			}
-			
+
 			//
 			for (String str : list) {
 				JSONObject json = JSON.parseObject(str);
 				JSONArray arr = json.getJSONArray("data");
-				
+
 				for (int i = 0; i < arr.size(); i++) {
 					JSONObject jsondata = (JSONObject) arr.get(i);
 					String invId = jsondata.getString("invId");
@@ -61,23 +67,23 @@ public class GudongService {
 								delmap = lima.get(string);
 								break;
 							}
-							
+
 						}
 					}
 					System.out.println(jsondata.toJSONString());
-					
+
 					//
 					String sql = SpellSql.json2sql(jsondata, delmap, conf, columns, companyId);
-					
+
 					// 写进sql文件
 					TxtFilesWriter.appendWriteToFile(sql, sqlfilepath);
 				}
-				
+
 			}
-			
+
 		}
 	}
-	
+
 	// 处理详细信息中每一个数据成一个map
 	private Map<String, Map<String, Object>> json2Map(List<String> detl) {
 		Map<String, Map<String, Object>> result = new HashMap<>();
@@ -106,7 +112,7 @@ public class GudongService {
 					}
 				}
 			}
-
+			
 			// 实缴 公示日期取最新的，出资额累加 出资方式拼接
 			JSONArray arr2 = (JSONArray) arr.get(1);
 			for (int i = 0; i < arr2.size(); i++) {
@@ -126,13 +132,13 @@ public class GudongService {
 						map.put(s, json2.getString(s));
 					}
 				}
-
+				
 			}
 			result.put(invId, map);
-			
-		}
 
+		}
+		
 		return result;
 	}
-
+	
 }
