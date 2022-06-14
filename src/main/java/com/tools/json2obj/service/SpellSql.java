@@ -14,10 +14,10 @@ import com.tools.json2obj.po.JsonTableColumn;
 import com.tools.json2obj.po.JsonTableType;
 
 public class SpellSql {
-
+	
 	// 基本信息
 	public static String map2sql(Map<String, String> map, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
 		sb.append(conf.getTableName());
@@ -40,20 +40,20 @@ public class SpellSql {
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系", conf.getType(), key));
 			}
 		}
-
+		
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-
+		
 		return sb.toString();
 	}
-
+	
 	// 股东
 	public static String json2sql(JSONObject jsondata, Map<String, Object> delmap, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
 		sb.append(conf.getTableName());
@@ -82,18 +82,18 @@ public class SpellSql {
 				}
 			}
 		}
-		
+
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-		
-		return sb.toString();
-		
-	}
 
+		return sb.toString();
+
+	}
+	
 	// 对数据简单的清理
 	private static String valueclean(String v) {
 		if (StringUtils.isBlank(v)) {
@@ -105,10 +105,10 @@ public class SpellSql {
 		}
 		// TODO 处理 html
 		v = v.replaceAll("<.*?>.*?</.*?>", "");
-		
+
 		return ",'" + v.replace("'", "‘") + "'";
 	}
-
+	
 	// 对日期简单的清理
 	private static String dateclean(Long v) {
 		if (v == null) {
@@ -119,7 +119,7 @@ public class SpellSql {
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		return ",'" + sd.format(d).toString() + "'";
 	}
-
+	
 	// 对图片简单处理
 	private static String imageclean(String v) {
 		if (StringUtils.isBlank(v)) {
@@ -151,12 +151,12 @@ public class SpellSql {
 			} else if (v.equals(JsonImgData.fdsz)) {
 				v = "副董事长";
 			}
-			
-		}
 
+		}
+		
 		return ",'" + v + "'";
 	}
-	
+
 	// 一般处理
 	public static String json2sql(JSONObject jsond, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
 		StringBuffer sb = new StringBuffer();
@@ -195,17 +195,17 @@ public class SpellSql {
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系,json值{%s}", conf.getType(), key, jsond.get(key)));
 			}
 		}
-		
+
 		columnsbuffer.append(")");
 		valuesbuffer.append(")");
 		sb.append(columnsbuffer);
 		sb.append(" values ");
 		sb.append(valuesbuffer);
 		sb.append(";");
-		
+
 		return sb.toString();
 	}
-	
+
 	public static String json2sql(JSONObject jsond, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId, String year) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" insert into ");
@@ -216,7 +216,7 @@ public class SpellSql {
 		columnsbuffer.append("(`company_id`");
 		valuesbuffer.append("('" + companyId + "'");
 		Integer yn = Integer.valueOf(year);
-		if (yn < 2020 && (conf.getType().equals(JsonTableType.TYPE_6_1))) {
+		if (yn < 2020 && (conf.getType().equals(JsonTableType.TYPE_6_1) || conf.getType().equals(JsonTableType.TYPE_6_8) || conf.getType().equals(JsonTableType.TYPE_6_3) || conf.getType().equals(JsonTableType.TYPE_6_4) || conf.getType().equals(JsonTableType.TYPE_6_5) || conf.getType().equals(JsonTableType.TYPE_6_6))) {
 			columnsbuffer.append(",`id`");
 			valuesbuffer.append(",UUID()");
 		}
@@ -242,7 +242,7 @@ public class SpellSql {
 					}
 				}
 			}
-
+			
 			if (has) {
 				// TODO
 				System.out.println(String.format("{%s} 中{ %s }没有对应的关系,json值{%s}", conf.getType(), key, jsond.get(key)));
@@ -258,7 +258,7 @@ public class SpellSql {
 		
 		return sb.toString();
 	}
-
+	
 	public static String map2Upd(Map<String, String> map, JsonTableCofig conf, List<JsonTableColumn> columns, String companyId) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" update ");
@@ -284,8 +284,8 @@ public class SpellSql {
 		}
 		sb.append(" where `company_id` = '" + companyId + "'");
 		sb.append(";");
-
+		
 		return sb.toString();
 	}
-	
+
 }

@@ -2,8 +2,8 @@ user:
   # 开关
   start: true
   type: "dir"  # dir or file
-  json-dir: "C:\\Users\\Administrator\\Desktop\\data\\06-13\\"
-  sql-dir: "sqlfile/"
+  json-dir: "C:\\Users\\Administrator\\Desktop\\data\\06-14\\"
+  sql-dir: "C:\\Users\\Administrator\\Desktop\\data\\06-14\\sqlfile\\"
   json-file: "jsonfile/ssss.json"
   sql-file: "sqlfile/ssss.json"
   ignore-type: # 

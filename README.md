@@ -69,8 +69,17 @@ jsonfile下文件格式说明
  
  文件放到 jsonfile/
  
- 执行 ``java -jar tools-json2obj.jar --f=test.txt --web=false ``
+# 执行 
+
+``java -jar tools-json2obj.jar --f=test.txt --web=false`` 
  
+``java -jar tools-json2obj.jar --web=false --t=dir`` 
+
+
+
+
+##@21
+
  test.txt 替换成要运行的文件
  
  //  TODO 

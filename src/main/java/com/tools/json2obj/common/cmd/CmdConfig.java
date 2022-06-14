@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CmdConfig {
-
+	
 	// 将方法注入到容器中，值为返回值对象
 	@Bean
 	public User getUser(ApplicationArguments arguments) {
@@ -27,7 +27,7 @@ public class CmdConfig {
 				user.setJsonFile(f.get(0));
 			}
 			if (t != null) {
-				user.setSqlFile(t.get(0));
+				user.setType(t.get(0));
 			}
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
