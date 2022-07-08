@@ -9,6 +9,6 @@ spring:
     #url: jdbc:h2:mem:dbc2m
     #url: jdbc:h2:file:./dbh2/dbc2m;AUTO_SERVER=TRUE
     #url: jdbc:h2:tcp://localhost:9091,localhost:9092/ip-proxy
-    url: jdbc:h2:tcp://localhost:9090/json2obj
+    url: jdbc:h2:tcp://192.168.0.103:9092/json2obj
     username: sa
     password: 

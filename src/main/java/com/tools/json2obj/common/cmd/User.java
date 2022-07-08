@@ -6,6 +6,6 @@ import lombok.Data;
 public class User {
 	String	jsonFile;
 	String	sqlFile;
-	String	type	= "file";		// or dir
-	Boolean	web		= Boolean.TRUE;
+	String	type;		// or dir
+	Boolean	web;
 }

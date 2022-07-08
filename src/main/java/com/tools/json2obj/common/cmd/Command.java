@@ -27,6 +27,15 @@ public class Command implements CommandLineRunner {
 	// 重写CommandLineRunner类的run方法
 	@Override
 	public void run(String... args) throws Exception {
+		if (user.getWeb() == null) {
+			user.setWeb(userConfig.getWeb() == true);
+		}
+		if (user.getType() == null) {
+			user.setType(userConfig.getType());
+		}
+		if (user.getJsonFile() == null) {
+			user.setJsonFile(userConfig.getJsonFile());
+		}
 		if (!user.getWeb()) {
 			if ("dir".equals(user.getType())) {
 				String filePath = userConfig.getJsonDir();
@@ -48,15 +57,15 @@ public class Command implements CommandLineRunner {
 				// 文件信息
 				String filePath = userConfig.getJsonDir() + user.getJsonFile();
 				
-				String t = userConfig.getSqlDir();
+				StringBuilder t = new StringBuilder(userConfig.getSqlDir());
 				if (user.getSqlFile() != null) {
-					t = t + user.getSqlFile();
+					t.append(user.getSqlFile());
 				} else {
 					String tf = user.getJsonFile().replaceAll(".txt|.json", ".sql");
-					t = t + tf;
+					t.append(tf);
 				}
 				
-				jsonToSqlService.json2sql(filePath, t);
+				jsonToSqlService.json2sql(filePath, t.toString());
 				
 				System.exit(0);
 			}

@@ -1,10 +1,11 @@
 user:
   # 开关
   start: true
-  type: "dir"  # dir or file
-  json-dir: "C:\\Users\\Administrator\\Desktop\\data\\06-14\\"
+  type: "file"  # dir or file
+  json-dir: "C:\\Users\\Public\\Nwt\\cache\\recv\\邓波\\"
   sql-dir: "C:\\Users\\Administrator\\Desktop\\data\\06-14\\sqlfile\\"
-  json-file: "jsonfile/ssss.json"
-  sql-file: "sqlfile/ssss.json"
+  json-file: "广州长隆集团有限公司.txt"
+  sql-file: "广州长隆集团有限公司.sql"
+  web: false
   ignore-type: # 
     - "基本信息"

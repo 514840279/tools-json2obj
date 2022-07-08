@@ -18,6 +18,8 @@ public class UserConfig {
 	// 模式 file or dir
 	private String			type		= "file";
 	
+	private Boolean			web			= Boolean.TRUE;
+	
 	// json文件目录
 	private String			jsonDir;
 

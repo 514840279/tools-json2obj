@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CmdConfig {
-	
+
 	// 将方法注入到容器中，值为返回值对象
 	@Bean
 	public User getUser(ApplicationArguments arguments) {
@@ -20,8 +20,6 @@ public class CmdConfig {
 		try {
 			if (web != null) {
 				user.setWeb("true".equals(web.get(0)));
-			} else {
-				user.setWeb(true);
 			}
 			if (f != null) {
 				user.setJsonFile(f.get(0));
