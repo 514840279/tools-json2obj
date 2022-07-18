@@ -128,28 +128,30 @@ public class SpellSql {
 		v = v.trim();
 		if (v.startsWith("<img")) {
 			//
-			if (v.equals(JsonImgData.ds)) {
+			if (v.equals(JsonImgData.ds) || v.equals(JsonImgData.ds2)) {
 				v = "董事";
-			} else if (v.equals(JsonImgData.js)) {
+			} else if (v.equals(JsonImgData.js) || v.equals(JsonImgData.js2)) {
 				v = "监事";
-			} else if (v.equals(JsonImgData.zjl)) {
+			} else if (v.equals(JsonImgData.zjl) || v.equals(JsonImgData.zjl2)) {
 				v = "总经理";
-			} else if (v.equals(JsonImgData.zxds)) {
+			} else if (v.equals(JsonImgData.zxds) || v.equals(JsonImgData.zxds2)) {
 				v = "执行董事";
-			} else if (v.equals(JsonImgData.dsz)) {
+			} else if (v.equals(JsonImgData.dsz) || v.equals(JsonImgData.dsz2)) {
 				v = "董事长";
 			} else if (v.equals(JsonImgData.cwfzr)) {
 				v = "财务负责人";
 			} else if (v.equals(JsonImgData.jsz)) {
 				v = "监事长";
-			} else if (v.equals(JsonImgData.dsjzjl)) {
+			} else if (v.equals(JsonImgData.dsjzjl) || v.equals(JsonImgData.dsjzjl2)) {
 				v = "董事兼总经理";
-			} else if (v.equals(JsonImgData.zgjs)) {
+			} else if (v.equals(JsonImgData.zgjs) || v.equals(JsonImgData.zgjs2)) {
 				v = "职工监事";
-			} else if (v.equals(JsonImgData.jl)) {
+			} else if (v.equals(JsonImgData.jl) || v.equals(JsonImgData.jl2)) {
 				v = "经理";
 			} else if (v.equals(JsonImgData.fdsz)) {
 				v = "副董事长";
+			} else if (v.equals(JsonImgData.jshzx)) {
+				v = "监事会主席";
 			}
 
 		}
